@@ -15,50 +15,44 @@
 <main class="page-container">
   <div class="nav-wrapper d-flex justify-content-left align-items-center">
     <!-- NavBar -->
-    <nav class="side-bar py-4">
-      <div class="side-bar-container container-fluid d-flex justify-content-start align-items-center flex-column px-0">
-        <div class="list-title-holder text-center">
-          <h4 class="pt-2">Quick List</h4>
-        </div>
-        <div class="list-title-holder text-center">
-          <h4 class="pt-2">Quick List</h4>
-        </div>
-        <div class="list-title-holder text-center">
-          <h4 class="pt-2">Quick List</h4>
-        </div>
-        <div class="list-title-holder text-center">
-          <h4 class="pt-2">Quick List</h4>
-        </div>
-        <div class="list-title-holder text-center">
-          <h4 class="pt-2">Quick List</h4>
-        </div>
-        <div class="list-title-holder text-center">
-          <h4 class="pt-2">Quick List</h4>
-        </div>
-        <div class="list-title-holder text-center">
-          <h4 class="pt-2">Quick List</h4>
-        </div>
-        <div class="list-title-holder text-center">
-          <h4 class="pt-2">Quick List</h4>
-        </div>
-        <div class="list-title-holder text-center">
-          <h4 class="pt-2">Quick List</h4>
-        </div>
+    <nav class="side-bar py-4 ">
+      <div class="side-bar-container container-fluid d-flex justify-content-start align-items-center flex-column px-0 ">
         <div class="list-title-holder text-center">
           <h4 class="pt-2">Quick List</h4>
         </div>
       </div>
       <div class="button-options mt-5">
         <div class="container-fluid px-0 d-flex justify-content-between align-items-center flex-row">
-          <button class="btn btn-danger" disabled>
+          <button class="btn btn-danger btn-delete" id="btn-delete" disabled>
             Delete List
           </button>
-          <button class="btn btn-success">  
+          <button class="btn btn-success btn-add" id="btn-add">  
             Add List
           </button>
         </div>
       </div>
     </nav>
+  </div>
+  <!-- Main List Area -->
+  <div class="list-wrapper d-flex justify-content-center align-items-center flex-column">
+    <div class="todo-title mt-4 mb-5" id="todo-title">
+      <h1 class="list-title p-4">Quick List</h1>
+    </div>
+    <div class="event-area" id="event-area">  
+      <div class="holder" id="holder">
+        
+      </div>
+    </div>
+    <div class="list-buttons mt-5" id="list-buttons">
+      <div class="button-holder d-flex justify-content-center align-items-center flex-row column-gap-5 p-4">
+        <button class="btn btn-danger clear-btn">
+          Clear Events
+        </button>
+        <button class="btn btn-success add-btn">
+          Add Event
+        </button>
+      </div>
+    </div>  
   </div>
 </main>
 
