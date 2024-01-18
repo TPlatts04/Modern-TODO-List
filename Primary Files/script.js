@@ -26,14 +26,18 @@ $('.btn-add').click(function() { // To add new lists
   </div>
   <div class="requirements">
     <ul>
-      <li> Must be less than 30 Characters</li>
-      <li> Contain no special characters</li>
+      <li class="list-1"> Must be less than or equal to 30 Characters <i class='fa-solid fa-check text-center'></i></li>
+      <li class="list-2"> Contain no special characters <i class='fa-solid fa-check text-center'></i></li>
     </ul>
+  </div>
+  <div class="pop-up-button-holder d-flex justify-content-center flex-row column-gap-3">
+    <button class="btn btn-dark mt-5 btn-cancel">Cancel</button>
+    <button class="btn btn-light mt-5 btn-confirm">Confirm</button>
   </div>
   `
   holder.appendChild(popUp) // Append new div to parent
 
-  $('.holder').slideDown(200)
+  $('.holder').slideDown(300)
 
   // Disable all buttons while pop-up is open
   $('.btn-delete').prop("disabled", true)
@@ -57,11 +61,54 @@ $('.btn-add').click(function() { // To add new lists
 
   // Gather key inputs to update character count for new list title 
   let titleString = document.getElementById('new-list-title')
+  const specialReg = /[!"£$%^&*()_+{:}@>?</`,./;'[|~\]=-]+/g // Create regex to find any special characters
   $(".new-list-title").keyup(function() {
-    if ($(this).val().length >= 30){
-      alert("Text limit has been reached")
-      titleString.value = $(this).val().slice(0, 30)
-    }
     $('.char-count').text(`${$(this).val().length}/30 Characters used`)
+    // Check if the length of the input value is more or less than 30
+    if ($(this).val().length > 30){
+      $('.list-1').html("<li>Must be less than or equal to 30 Characters <i class='fa-solid fa-xmark text-center'></i></li>")
+    } else {
+      $('.list-1').html("<li>Must be less than or equal to 30 Characters <i class='fa-solid fa-check text-center'></i></li>")
+      $('.btn-light').attr("disabled", false)
+    }
+    // Check if string in input has any special characters
+    if (titleString.value.match(specialReg) !== null){
+      $('.list-2').html("<li>Contain no special characters <i class='fa-solid fa-xmark text-center'></i></li>")
+    } else {
+      $('.list-2').html("<li>Contain no special characters <i class='fa-solid fa-check text-center'></i></li>")
+    }
+
+    if ($(this).val().length > 30 || titleString.value.match(specialReg) !== null) {
+      $('.btn-confirm').prop("disabled", true) // Disable button if doesnt meet criteria
+    } else {
+      $('.btn-confirm').prop("disabled", false) // Enable button if meet criteria
+    }
+  })
+
+  // Created the close animation etc for the cancel button
+  $('.btn-cancel').click(function() {
+    $('.holder').slideUp(300)
+  
+      // Enable all buttons while pop-up closes
+      $('.btn-delete').prop("disabled", false)
+      $('.btn-add').prop("disabled", false)
+      $('.add-btn').prop("disabled", false)
+      $('.clear-btn').prop("disabled", false)
+    
+      // Remove bg to remove the disabled button "effect"
+      $('.page-container').css("backgroundColor", "")
+    
+      // Reset opacity to make restore original alpha value more 
+      $('.list-title-holder').css("opacity", "1");
+      $('.list-title').css("opacity", "1");
+      $('.btn-delete').css("opacity", "1");
+      $('.btn-add').css("opacity", "1");
+      $('.add-btn').css("opacity", "1");
+      $('.clear-btn').css("opacity", "1");
+    
+      // Remove pointer cursor from list divs
+      $('.list-title-holder').css("cursor", "pointer");
+
+      holder.removeChild(popUp)
   })
 })
