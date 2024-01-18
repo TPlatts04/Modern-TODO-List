@@ -9,5 +9,5 @@ Coded the cancel button to ensure that the user can exit out of the "Add List" p
 Coded so the confirm button within the pop-up is disabled when one of the criterias are not met.
 
 NOTES FOR TOMORROW:
-Code the confirm button within th epop-up, so user can create a new list with their given input
+Code the confirm button within the pop-up, so user can create a new list with their given input
 Code the "10 List Limit" within the side navigation bar
