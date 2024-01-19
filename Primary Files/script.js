@@ -1,20 +1,6 @@
 let disableState = true
 let divCount = 1;
 
-  // Enable/disable delete list button 
-  $('.list-title-holder').click(function(event) {
-    console.log(this)
-    if (disableState) {
-      $(this).css('boxShadow', '0px 0px 10px white') // Add a small animation to the selected div
-      $('.btn-delete').prop("disabled", false)
-      disableState = false
-    } else {
-      $(this).css('boxShadow', '0px 0px 10px black')
-      $('.btn-delete').prop("disabled", true)
-      disableState = true
-    }
-  })
-
 // Add new list function
 $('.btn-add').click(function() {
   const holder = document.getElementById('holder') // Access parent div
@@ -86,6 +72,11 @@ $('.btn-add').click(function() {
   })
 })
 
+// Load selected list
+$(`.list-title-holder-${divCount}`).click(function() {
+  
+})
+
 // Enable Elements 
 const enable = () => {
   // Enable all buttons while pop-up closes
@@ -135,7 +126,31 @@ const newList = (listName) => {
   divCount++;
   const navContainer = document.getElementById('side-bar-container')
   navContainer.innerHTML += `
-  <div class="list-title-holder text-center">
+  <div class="list-title-holder list-title-holder-${divCount} text-center">
     <h4 class="pt-2">${listName}</h4>
   </div>`
+  
+  const listContainer = document.createElement('div')
+  listContainer.classList.add(`list-wrapper-${divCount}`)
+  $(`.list-wrapper-${divCount}`).attr("id", `list-wrapper-${divCount}`)
+
+  listContainer.innerHTML = `
+  <div class="todo-title mt-4 mb-5" id="todo-title">
+    <h1 class="list-title p-4">${listName}</h1>
+  </div>
+<div class="event-area" id="event-area">  
+  <div class="holder" id="holder">
+  
+  </div>
+</div>
+<div class="list-buttons mt-5" id="list-buttons">
+<div class="button-holder d-flex justify-content-center align-items-center flex-row column-gap-5 p-4">
+  <button class="btn btn-danger clear-btn">
+    Clear Events
+  </button>
+  <button class="btn btn-success add-btn">
+    Add Event
+  </button>
+</div>
+</div>`
 }
