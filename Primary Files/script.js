@@ -1,19 +1,22 @@
 let disableState = true
+let divCount = 1;
 
-$('.list-title-holder').click(function(event) { // Enable/disable delete list button 
-  if (disableState) {
-    $(this).css('boxShadow', '0px 0px 10px white')
-    $('.btn-delete').prop("disabled", false)
-    disableState = false
-  } else {
-    $(this).css('boxShadow', '0px 0px 10px black')
-    $('.btn-delete').prop("disabled", true)
-    disableState = true
-  }
-})
+  // Enable/disable delete list button 
+  $('.list-title-holder').click(function(event) {
+    console.log(this)
+    if (disableState) {
+      $(this).css('boxShadow', '0px 0px 10px white') // Add a small animation to the selected div
+      $('.btn-delete').prop("disabled", false)
+      disableState = false
+    } else {
+      $(this).css('boxShadow', '0px 0px 10px black')
+      $('.btn-delete').prop("disabled", true)
+      disableState = true
+    }
+  })
 
 // Add new list function
-$('.btn-add').click(function() { // To add new lists
+$('.btn-add').click(function() {
   const holder = document.getElementById('holder') // Access parent div
   const popUp = document.createElement('div') // Create new div for pop-up
   popUp.classList.add('pop-up')
@@ -36,28 +39,8 @@ $('.btn-add').click(function() { // To add new lists
   </div>
   `
   holder.appendChild(popUp) // Append new div to parent
-
+  disable()
   $('.holder').slideDown(300)
-
-  // Disable all buttons while pop-up is open
-  $('.btn-delete').prop("disabled", true)
-  $('.btn-add').prop("disabled", true)
-  $('.add-btn').prop("disabled", true)
-  $('.clear-btn').prop("disabled", true)
-
-  // Add bg to show the disabled button "effect"
-  $('.page-container').css("backgroundColor", "rgba(0,0,0,0.8)")
-
-  // Lower opacity to make pop-up "pop" more 
-  $('.list-title-holder').css("opacity", "0.4");
-  $('.list-title').css("opacity", "0.4");
-  $('.btn-delete').css("opacity", "0.4");
-  $('.btn-add').css("opacity", "0.4");
-  $('.add-btn').css("opacity", "0.4");
-  $('.clear-btn').css("opacity", "0.4");
-
-  // Remove pointer cursor from list divs
-  $('.list-title-holder').css("cursor", "default");
 
   // Gather key inputs to update character count for new list title 
   let titleString = document.getElementById('new-list-title')
@@ -87,28 +70,72 @@ $('.btn-add').click(function() { // To add new lists
 
   // Created the close animation etc for the cancel button
   $('.btn-cancel').click(function() {
-    $('.holder').slideUp(300)
-  
-      // Enable all buttons while pop-up closes
-      $('.btn-delete').prop("disabled", false)
-      $('.btn-add').prop("disabled", false)
-      $('.add-btn').prop("disabled", false)
-      $('.clear-btn').prop("disabled", false)
-    
-      // Remove bg to remove the disabled button "effect"
-      $('.page-container').css("backgroundColor", "")
-    
-      // Reset opacity to make restore original alpha value more 
-      $('.list-title-holder').css("opacity", "1");
-      $('.list-title').css("opacity", "1");
-      $('.btn-delete').css("opacity", "1");
-      $('.btn-add').css("opacity", "1");
-      $('.add-btn').css("opacity", "1");
-      $('.clear-btn').css("opacity", "1");
-    
-      // Remove pointer cursor from list divs
-      $('.list-title-holder').css("cursor", "pointer");
-
+      enable();
       holder.removeChild(popUp)
   })
+
+  // Allow user to create a new list upon confirm 
+  $('.btn-confirm').click(function() {
+    if (divCount < 10){
+      newList($('.new-list-title').val())
+      enable();
+      holder.removeChild(popUp)
+    } else {
+      alert("You have reached the 10 List limit, delete a list to continue.")
+    }
+  })
 })
+
+// Enable Elements 
+const enable = () => {
+  // Enable all buttons while pop-up closes
+  $('.btn-add').prop("disabled", false)
+  $('.add-btn').prop("disabled", false)
+  $('.clear-btn').prop("disabled", false)
+
+  // Remove bg to remove the disabled button "effect"
+  $('.page-container').css("backgroundColor", "")
+
+  // Reset opacity to make restore original alpha value more 
+  $('.list-title-holder').css("opacity", "1");
+  $('.list-title').css("opacity", "1");
+  $('.btn-add').css("opacity", "1");
+  $('.add-btn').css("opacity", "1");
+  $('.clear-btn').css("opacity", "1");
+
+  // Remove pointer cursor from list divs
+  $('.list-title-holder').css("cursor", "pointer");
+}
+
+// Disable Elements
+const disable = () => {
+  // Disable all buttons while pop-up is open
+  $('.btn-delete').prop("disabled", true)
+  $('.btn-add').prop("disabled", true)
+  $('.add-btn').prop("disabled", true)
+  $('.clear-btn').prop("disabled", true)
+
+  // Add bg to show the disabled button "effect"
+  $('.page-container').css("backgroundColor", "rgba(0,0,0,0.8)")
+
+  // Lower opacity to make pop-up "pop" more 
+  $('.list-title-holder').css("opacity", "0.4");
+  $('.list-title').css("opacity", "0.4");
+  $('.btn-delete').css("opacity", "0.4");
+  $('.btn-add').css("opacity", "0.4");
+  $('.add-btn').css("opacity", "0.4");
+  $('.clear-btn').css("opacity", "0.4");
+
+  // Remove pointer cursor from list divs
+  $('.list-title-holder').css("cursor", "default");
+}
+
+// Create New List In Nav Bar 
+const newList = (listName) => {
+  divCount++;
+  const navContainer = document.getElementById('side-bar-container')
+  navContainer.innerHTML += `
+  <div class="list-title-holder text-center">
+    <h4 class="pt-2">${listName}</h4>
+  </div>`
+}

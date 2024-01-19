@@ -36,12 +36,16 @@ body {
           box-shadow: 0px 0px 10px black;
           cursor: pointer;
           transition: all 250ms;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          text-overflow: ellipsis;
         }
         .list-title-holder:hover {
           box-shadow: 0px 0px 10px black, 0px 0px 10px black;
+        }
+
+        h4 {
+          overflow-x: hidden;
+          text-overflow: ellipsis;
+          font-size: 21px;
+          font-weight: bold;
         }
       }
     }
@@ -115,6 +119,12 @@ body {
               color: white;
               text-shadow: 0px 0px 10px black;
               text-decoration: underline;
+            }
+
+            .max-title {
+              color: red;
+              font-size: 38px;
+              font-weight: bold;
             }
           }
 
