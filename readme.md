@@ -11,4 +11,4 @@ There is not much left to do on this project, only creating the events which use
 One major feature which i will focus on when coming back to this project is the creation of a new page when a given list is selected.
 
 I made sure to provide my design and notes within this project if anyone would like to give me any ideas within this repo, or have a go at completing it for yourself.
-This project will be live as a website at: https://tplatts04.github.io/Modern-TODO-List/
+This project will be live as a website at: 
